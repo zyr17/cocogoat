@@ -112,35 +112,37 @@ export default defineComponent({
                 :value="item">
                 </el-option>
             </el-select>
-            <el-empty v-if="filter.includeSub.length <= 0" :image-size="80" :description="__('暂无副词条')"></el-empty>
-            <ul v-else class="sub">
-                <li v-for="(i, a) in filter.includeSub" :key="a">
-                    <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
-                        <template #prepend>
-                            <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
-                                <el-option
-                                    v-for="(j, a) in ArtifactSubParamTypes"
-                                    :key="a"
-                                    :value="j"
-                                    :label="__(j)"
-                                    @click="onSubClick(i)"
-                                ></el-option>
-                            </el-select>
-                            <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
-                                <el-option
-                                    v-for="(j, a) in availableSubFilterEquations"
-                                    :key="a"
-                                    :value="j.value"
-                                    :label="j.label"
-                                ></el-option>
-                            </el-select>
-                        </template>
-                        <template #append>
-                            <el-button icon="el-icon-delete-solid" @click="doDeleteIncludeSub(a)"></el-button>
-                        </template>
-                    </el-input>
-                </li>
-            </ul>
+            <el-tooltip class="item" effect="dark" :content="__('提示：过滤生命、防御、攻击时，根据过滤值是否带百分号来决定对固定值还是百分比生效。详见过滤逻辑。')" placement="top">
+                <el-empty v-if="filter.includeSub.length <= 0" :image-size="80" :description="__('暂无副词条')"></el-empty>
+                <ul v-else class="sub">
+                    <li v-for="(i, a) in filter.includeSub" :key="a">
+                        <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
+                            <template #prepend>
+                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
+                                    <el-option
+                                        v-for="(j, a) in ArtifactSubParamTypes"
+                                        :key="a"
+                                        :value="j"
+                                        :label="__(j)"
+                                        @click="onSubClick(i)"
+                                    ></el-option>
+                                </el-select>
+                                <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
+                                    <el-option
+                                        v-for="(j, a) in availableSubFilterEquations"
+                                        :key="a"
+                                        :value="j.value"
+                                        :label="j.label"
+                                    ></el-option>
+                                </el-select>
+                            </template>
+                            <template #append>
+                                <el-button icon="el-icon-delete-solid" @click="doDeleteIncludeSub(a)"></el-button>
+                            </template>
+                        </el-input>
+                    </li>
+                </ul>
+            </el-tooltip>
             {{ __('不想包含的副词条') }}<br />
             {{ __('最多包含条数') }}<br />
             <el-select v-model="filter.excludeSubCount">
@@ -151,35 +153,37 @@ export default defineComponent({
                 :value="item">
                 </el-option>
             </el-select>
-            <el-empty v-if="filter.excludeSub.length <= 0" :image-size="80" :description="__('暂无副词条')"></el-empty>
-            <ul v-else class="sub">
-                <li v-for="(i, a) in filter.excludeSub" :key="a">
-                    <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
-                        <template #prepend>
-                            <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
-                                <el-option
-                                    v-for="(j, a) in ArtifactSubParamTypes"
-                                    :key="a"
-                                    :value="j"
-                                    :label="__(j)"
-                                    @click="onSubClick(i)"
-                                ></el-option>
-                            </el-select>
-                            <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
-                                <el-option
-                                    v-for="(j, a) in availableSubFilterEquations"
-                                    :key="a"
-                                    :value="j.value"
-                                    :label="j.label"
-                                ></el-option>
-                            </el-select>
-                        </template>
-                        <template #append>
-                            <el-button icon="el-icon-delete-solid" @click="doDeleteExcludeSub(a)"></el-button>
-                        </template>
-                    </el-input>
-                </li>
-            </ul>
+            <el-tooltip class="item" effect="dark" :content="__('提示：过滤生命、防御、攻击时，根据过滤值是否带百分号来决定对固定值还是百分比生效。详见过滤逻辑。')" placement="top">
+                <el-empty v-if="filter.excludeSub.length <= 0" :image-size="80" :description="__('暂无副词条')"></el-empty>
+                <ul v-else class="sub">
+                    <li v-for="(i, a) in filter.excludeSub" :key="a">
+                        <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
+                            <template #prepend>
+                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
+                                    <el-option
+                                        v-for="(j, a) in ArtifactSubParamTypes"
+                                        :key="a"
+                                        :value="j"
+                                        :label="__(j)"
+                                        @click="onSubClick(i)"
+                                    ></el-option>
+                                </el-select>
+                                <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
+                                    <el-option
+                                        v-for="(j, a) in availableSubFilterEquations"
+                                        :key="a"
+                                        :value="j.value"
+                                        :label="j.label"
+                                    ></el-option>
+                                </el-select>
+                            </template>
+                            <template #append>
+                                <el-button icon="el-icon-delete-solid" @click="doDeleteExcludeSub(a)"></el-button>
+                            </template>
+                        </el-input>
+                    </li>
+                </ul>
+            </el-tooltip>
         </article>
         <template #footer>
             <span class="dialog-footer">
@@ -199,6 +203,31 @@ export default defineComponent({
                 >
                     {{ __('添加不包含副词条') }}
                 </el-button>
+                <el-popover
+                placement="top-end"
+                width="600"
+                trigger="hover">
+                    <div id="filter-hint" style="width: 600px;">
+                        <p>{{ __('部位、套装、等级、星级、主词条为复选菜单，不选时不使用该数据过滤，选择后过滤满足所选项的圣遗物。') }}</p>
+                        <p>{{ __('对于副词条，有想包含的副词条和不想包含的副词条两种。如果留空则不用于过滤。以想包含的副词条为例：') }}</p>
+                        <ul>
+                            <li>{{ __('最少包含条数：最少包含多少条所列的副词条。例如选择了攻充爆爆最少条数3，那么这四条中至少包含三条的圣遗物才会被过滤出来') }}</li>
+                            <li>{{ __('添加想包含副词条：按钮位于窗口最下方，点击后添加新的一个副词条筛选数据') }}</li>
+                            <li>{{ __('副词条：包含四部分，副词条名称、判断方式、数值、删除。名称选择副词条名，判断方式有') }}<code>&gt; &lt; =</code>{{ __('等，数值为数值阈值，删除为删除该副词条。') }}<strong>{{ __('这里名称中的攻击力、防御力、生命值同时指代百分比数据和数字数据，并通过数值栏有无百分号区分。') }}</strong>{{ __('例如只想选攻击力百分比，数值需要输入') }}<code>x%</code>{{ __('；想同时包含防御力和防御力百分比，需要写两条') }}<code>{{ __('防御力') }} &gt; 0, {{ __('防御力') }} &gt; 0%</code></li>
+                        </ul>
+                        <p>{{ __('不想包含的副词条和上述类似，不同在于：最多包含条数，圣遗物副词条最多只能包含多少条不想包含的副词条。添加不包含副词条，添加新的一条不想包含的副词条。') }}</p>
+                        <p>{{ __('点击确定应用过滤，界面将只展示过滤出的圣遗物，同时过滤按钮变为取消过滤，点击后重新展示所有圣遗物。') }}</p>
+                    </div>
+
+                    <template #reference>
+                        <el-button
+                        size="small"
+                        plain
+                        >
+                            {{ __('过滤逻辑') }}
+                        </el-button>
+                    </template>
+                </el-popover>
                 <el-button size="small" type="primary" @click="doSave">{{ __('确定') }}</el-button>
             </span>
         </template>
@@ -252,5 +281,12 @@ export default defineComponent({
         width: 180px !important;
         display: block;
     }
+}
+#filter-hint code {
+    background-color: rgba(175, 184, 193, 0.2);
+    padding: .2em .4em;
+    font-size: 85%;
+    margin: 0;
+    border-radius: 6px;
 }
 </style>
