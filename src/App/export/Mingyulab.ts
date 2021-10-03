@@ -228,7 +228,7 @@ export function convertAsMingyulab(artifacts: Artifact[]) {
                         : getStander.tag['固定' + artifacts[i].sub[j].name]
                 const value = artifacts[i].sub[j].value.includes('%')
                     ? parseFloat(artifacts[i].sub[j].value.replace('%', ''))
-                    : Number(artifacts[i].sub[j].value)
+                    : Number(artifacts[i].sub[j].value.replace(',', ''))
                 // @ts-ignore
                 p[`subStat${j + 1}Type`] = name.toString()
                 // @ts-ignore

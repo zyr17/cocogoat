@@ -229,7 +229,7 @@ export function convertAsMona(artifacts: Artifact[]) {
                         : getStander.tag['固定' + artifacts[i].sub[j].name],
                 value: artifacts[i].sub[j].value.includes('%')
                     ? parseFloat(artifacts[i].sub[j].value.replace('%', '')) * 0.01
-                    : Number(artifacts[i].sub[j].value),
+                    : Number(artifacts[i].sub[j].value.replace(',', '')),
             })
         }
         try {
@@ -247,7 +247,7 @@ export function convertAsMona(artifacts: Artifact[]) {
                             : getStander.tag['固定' + artifacts[i].main.name],
                     value: artifacts[i].main.value.includes('%')
                         ? parseFloat(artifacts[i].main.value.replace('%', '')) * 0.01
-                        : Number(artifacts[i].main.value),
+                        : Number(artifacts[i].main.value.replace(',', '')),
                 },
                 normalTags: sub,
                 omit: false,
