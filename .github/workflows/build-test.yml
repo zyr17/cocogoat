@@ -40,7 +40,7 @@ jobs:
           name: cocogoat
           path: dist/*.gz
       - name: Upload unpacked
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v2
         with:
           name: cocogoat-unpacked
           path: dist_electron/win-unpacked/
