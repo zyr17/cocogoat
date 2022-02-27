@@ -30,6 +30,8 @@ jobs:
         run: (Get-content yarn.lock) | Foreach-Object {$_ -replace "registry.nlark.com", "r.cnpmjs.org"} | Set-Content yarn.lock
       - name: Install dependencies
         run: yarn --ignore-scripts
+      - name: Show yarn list
+        run: yarn list
       - name: Build native modules
         run: npm rebuild --force
       - name: Build
