@@ -34,7 +34,7 @@ jobs:
         run: yarn list
       - name: Build native modules
         run: |
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+          pwd | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
           npm rebuild --force
       - name: Build
         run: yarn electron:build
