@@ -5564,13 +5564,6 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-flyio@^0.6.14:
-  version "0.6.14"
-  resolved "https://registry.yarnpkg.com/flyio/-/flyio-0.6.14.tgz#c5d83eb7a9b4fc1c915a463d2ea6dfce755c2d6f"
-  integrity sha512-RE2OXE1ZZmcXOKb0jCtGyquHDxpAqHg17CZ8lmQKRfl3x1kP+NBpaQDx4WgN7DNpLJjFnspTzTEQpwRGg6/xaA==
-  dependencies:
-    request "^2.85.0"
-
 follow-redirects@^1.0.0:
   version "1.14.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.9.tgz#dd4ea157de7bfaf9ea9b3fbd85aa16951f78d8d7"
@@ -9717,7 +9710,7 @@ repeat-string@^1.6.1:
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
 
-request@2.88.2, request@^2.45.0, request@^2.85.0, request@^2.88.2:
+request@2.88.2, request@^2.45.0, request@^2.88.2:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==

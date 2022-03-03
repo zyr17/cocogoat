@@ -56,11 +56,6 @@ app.on('ready', async () => {
         process.env[p] = pathEnv
     }
     if (config.options.sendErrorReports && process.env.NODE_ENV !== 'development') {
-        Sentry.init({
-            dsn: process.env.VUE_APP_SENTRY,
-            environment: config.build ? config.build.type : 'DEV',
-            release: config.build && config.build.type === EBuild.REL ? config.version : 'dev',
-        })
     }
 
     createWindow()

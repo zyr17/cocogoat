@@ -7,6 +7,9 @@ import {
     ArtifactSetNames,
 } from '@/typings/ArtifactMap'
 import { SubFilterEquation, SubFilter, ArtifactFilter } from '@/typings/ArtifactFilter'
+import { clipboard } from 'electron';
+import { ElNotification } from 'element-plus'
+import { __ } from '@/i18n'
 export default defineComponent({
     props: {
         inputFilter: {
@@ -21,6 +24,8 @@ export default defineComponent({
         for (let i in SubFilterEquation)
             if (isNaN(Number(i))) availableSubFilterEquations.push({ value: SubFilterEquation[i], label: i })
         const filter = this.inputFilter || new ArtifactFilter()
+        let showLoadPanel = false;
+        let saveInput = '';
         return {
             ArtifactParamTypes,
             ArtifactSubParamTypes,
@@ -28,6 +33,8 @@ export default defineComponent({
             ArtifactPositionNames,
             availableSubFilterEquations,
             filter,
+            showLoadPanel,
+            saveInput,
         }
     },
     watch: {},
@@ -57,6 +64,30 @@ export default defineComponent({
             )
                 sub.value += '%'
         },
+        showJSON() {
+            clipboard.writeText(JSON.stringify(this.filter));
+            ElNotification({
+                type: 'success',
+                title: __('导出过滤规则成功'),
+                message: __('已复制到剪贴板'),
+            })
+        },
+        loadJSON() {
+            try {
+                this.filter = JSON.parse(this.saveInput);
+                ElNotification({
+                    type: 'success',
+                    title: __('导入过滤规则成功'),
+                })
+            }
+            catch {
+                ElNotification({
+                    type: 'error',
+                    title: __('导入过滤规则失败'),
+                    message: __('请检查规则是否为合法JSON格式'),
+                })
+            }
+        }
     },
 })
 </script>
@@ -193,9 +224,20 @@ export default defineComponent({
                         </el-button>
                     </template>
                 </el-popover>
+                <el-button size="small" type="primary" @click="showJSON">{{ __('保存规则') }}</el-button>
+                <el-button size="small" type="primary" @click="showLoadPanel = true;">{{ __('读取规则') }}</el-button>
                 <el-button size="small" type="primary" @click="doSave">{{ __('确定') }}</el-button>
             </span>
         </template>
+        <el-dialog class="inputsavedialog" :title="__('输入保存数据')" width="400px" :model-value="showLoadPanel" @update:model-value="showLoadPanel = false;">
+            <textarea v-model="saveInput" style="width: 100%; height: 100px;"></textarea>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button size="small" type="primary" @click="showLoadPanel = false; loadJSON();">{{ __('确定') }}</el-button>
+                    <el-button size="small" @click="showLoadPanel = false;">{{ __('取消') }}</el-button>
+                </span>
+            </template>
+        </el-dialog>
     </el-dialog>
 </template>
 

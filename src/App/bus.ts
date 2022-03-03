@@ -5,9 +5,7 @@ import { defaultConfig, EBuild, IConfig } from '@/typings/config'
 import { reactive, watch } from 'vue'
 import { getConfig, readArtifacts } from './ipc'
 import { ipcRenderer } from 'electron'
-import { latestRelease } from '@/api/upgrade'
 export { API_BASE } from '@/config'
-import { version_compare } from '@/plugins/version_compare'
 
 let lastConfigWrite: Promise<any> | null = null
 let configRead = false
@@ -79,12 +77,6 @@ export async function loadData() {
                 buildType = `.${bus.config.build?.timestamp}dev`
             } else if (bus.config.build?.type === EBuild.TES) {
                 buildType = `.${bus.config.build?.timestamp}beta`
-            }
-            const localVersion = bus.config.version + buildType
-            const release = await latestRelease(localVersion, 'auto')
-            const cmp = version_compare(localVersion, release.version)
-            if (cmp && cmp < 0) {
-                bus.hasUpgrade = true
             }
         } catch (e) {}
     })()

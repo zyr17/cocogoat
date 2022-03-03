@@ -1,10 +1,10 @@
 <script>
 import { bus } from './bus'
 import { ipcRenderer } from 'electron'
-import FirstrunDialog from './Views/FirstrunDialog'
+// import FirstrunDialog from './Views/FirstrunDialog'
 export default {
     components: {
-        FirstrunDialog,
+        // FirstrunDialog,
     },
     computed: {
         bus() {
@@ -90,7 +90,7 @@ export default {
     <main>
         <router-view />
     </main>
-    <firstrun-dialog :show="bus.config.options.firstRun" />
+    <!-- <firstrun-dialog :show="bus.config.options.firstRun" /> -->
 </template>
 <style lang="scss">
 html,

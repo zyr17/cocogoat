@@ -49,9 +49,9 @@ export function defaultConfig(): IConfig {
         dataDir: '',
         options: {
             lang: '',
-            firstRun: true,
-            sendErrorReports: true,
-            sendWrongOCRReports: true,
+            firstRun: false,
+            sendErrorReports: false,
+            sendWrongOCRReports: false,
             artifacts: {
                 preserveSwitcher: false,
                 keepSameArtifacts: false,
