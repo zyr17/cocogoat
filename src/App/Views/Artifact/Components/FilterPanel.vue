@@ -94,14 +94,18 @@ export default defineComponent({
 <template>
     <el-dialog :title="title" width="800px" :model-value="show" @update:model-value="$emit('update:show', $event)">
         <article class="artiface-edit-panel">
-            <el-select v-model="filter.position" multiple :placeholder="__('位置')">
+            <el-select v-model="filter.position" multiple :placeholder="__('位置')" style="width: 50%;">
                 <el-option v-for="(item, a) in ArtifactPositionNames" :key="a" :label="__(item)" :value="item">
                 </el-option>
             </el-select>
-            <el-select v-model="filter.set" multiple :placeholder="__('套装')">
+            <el-select v-model="filter.main" multiple :placeholder="__('主词条')" style="width: 50%;">
+                <el-option v-for="(item, a) in ArtifactParamTypes" :key="a" :label="__(item)" :value="item">
+                </el-option>
+            </el-select>
+            <el-select v-model="filter.set" multiple :placeholder="__('套装')" style="width: 50%;">
                 <el-option v-for="(item, a) in ArtifactSetNames" :key="a" :label="__(item)" :value="item"> </el-option>
             </el-select>
-            <el-select v-model="filter.level" multiple :placeholder="__('等级')">
+            <el-select v-model="filter.level" multiple :placeholder="__('等级')" style="width: 16.666%;">
                 <el-option
                     v-for="(item, a) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
                     :key="a"
@@ -110,12 +114,11 @@ export default defineComponent({
                 >
                 </el-option>
             </el-select>
-            <el-select v-model="filter.stars" multiple :placeholder="__('星级')">
+            <el-select v-model="filter.stars" multiple :placeholder="__('星级')" style="width: 16.666%;">
                 <el-option v-for="(item, a) in [1, 2, 3, 4, 5]" :key="a" :label="item" :value="item"> </el-option>
             </el-select>
-            <el-select v-model="filter.main" multiple :placeholder="__('主词条')">
-                <el-option v-for="(item, a) in ArtifactParamTypes" :key="a" :label="__(item)" :value="item">
-                </el-option>
+            <el-select v-model="filter.subCount" multiple :placeholder="__('副词条数量')" style="width: 16.666%;">
+                <el-option v-for="(item, a) in [0, 1, 2, 3, 4]" :key="a" :label="item" :value="item"> </el-option>
             </el-select>
             <br />
             {{ __('需要包含的副词条') }}<br />
@@ -129,7 +132,7 @@ export default defineComponent({
                     <li v-for="(i, a) in filter.includeSub" :key="a">
                         <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
                             <template #prepend>
-                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
+                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')" style="width: 150px;">
                                     <el-option
                                         v-for="(j, a) in ArtifactSubParamTypes"
                                         :key="a"
@@ -138,7 +141,7 @@ export default defineComponent({
                                         @click="onSubClick(i)"
                                     ></el-option>
                                 </el-select>
-                                <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
+                                <el-select v-model="i.equation" size="small" style="margin-left: 0px; width: 70px;">
                                     <el-option
                                         v-for="(j, a) in availableSubFilterEquations"
                                         :key="a"
@@ -245,9 +248,9 @@ export default defineComponent({
 .artiface-edit-panel {
     position: relative;
     margin-top: -20px;
-    &::v-deep(.el-select) .el-input {
-        width: 150px;
-    }
+    // &::v-deep(.el-select) .el-input {
+    //     width: 150px;
+    // }
     .title-select {
         width: 180px;
         white-space: nowrap;

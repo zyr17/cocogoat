@@ -40,6 +40,7 @@ export class ArtifactFilter {
     name: String[] = []
     set: String[] = []
     position: String[] = []
+    subCount: Number[] = []
     includeSub: SubFilter[] = []
     includeSubCount: number = 0
     excludeSub: SubFilter[] = []
@@ -63,6 +64,7 @@ export class ArtifactFilter {
         const [set, position] = ArtifactToSetPosition.get(artifact.name) || ['', '']
         inFilter &&= this.filterOne(set, this.set)
         inFilter &&= this.filterOne(position, this.position)
+        inFilter &&= this.filterOne(artifact.sub.length, this.subCount)
         const subInclude = this.filterSub(artifact.sub, this.includeSub, this.includeSubCount, true)
         const subExclude = this.filterSub(artifact.sub, this.excludeSub, this.excludeSubCount + 1, false)
         inFilter = inFilter && subInclude && !subExclude
