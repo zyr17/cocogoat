@@ -74,13 +74,13 @@ export default defineComponent({
         },
         loadJSON() {
             try {
-                this.filter = JSON.parse(this.saveInput);
+                this.filter.loadFromJSON(this.saveInput);
                 ElNotification({
                     type: 'success',
                     title: __('导入过滤规则成功'),
                 })
             }
-            catch {
+            catch (e) {
                 ElNotification({
                     type: 'error',
                     title: __('导入过滤规则失败'),
@@ -168,7 +168,7 @@ export default defineComponent({
                     <li v-for="(i, a) in filter.excludeSub" :key="a">
                         <el-input v-model="i.value" size="small" :placeholder="__('属性值')">
                             <template #prepend>
-                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')">
+                                <el-select v-model="i.name" size="small" :placeholder="__('属性名')" style="width: 150px;">
                                     <el-option
                                         v-for="(j, a) in ArtifactSubParamTypes"
                                         :key="a"
@@ -177,7 +177,7 @@ export default defineComponent({
                                         @click="onSubClick(i)"
                                     ></el-option>
                                 </el-select>
-                                <el-select v-model="i.equation" size="small" style="margin-left: 0px;">
+                                <el-select v-model="i.equation" size="small" style="margin-left: 0px; width: 70px;">
                                     <el-option
                                         v-for="(j, a) in availableSubFilterEquations"
                                         :key="a"
@@ -202,6 +202,8 @@ export default defineComponent({
                 <el-button size="small" plain style="float: left" @click="doAddExcludeSub">
                     {{ __('添加不包含副词条') }}
                 </el-button>
+                <el-button size="small" type="primary" @click="showJSON">{{ __('保存过滤规则') }}</el-button>
+                <el-button size="small" type="primary" @click="showLoadPanel = true;">{{ __('读取过滤规则') }}</el-button>
                 <el-popover
                 placement="top-end"
                 width="600"
@@ -227,8 +229,6 @@ export default defineComponent({
                         </el-button>
                     </template>
                 </el-popover>
-                <el-button size="small" type="primary" @click="showJSON">{{ __('保存规则') }}</el-button>
-                <el-button size="small" type="primary" @click="showLoadPanel = true;">{{ __('读取规则') }}</el-button>
                 <el-button size="small" type="primary" @click="doSave">{{ __('确定') }}</el-button>
             </span>
         </template>

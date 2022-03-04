@@ -2,6 +2,7 @@
  * 圣遗物过滤器
  *
  */
+import { Dictionary } from 'lodash'
 import { Artifact, ArtifactParam } from './Artifact'
 import { ArtifactToSetPosition } from './ArtifactMap'
 export enum SubFilterEquation {
@@ -12,9 +13,20 @@ export enum SubFilterEquation {
     '=',
 }
 export class SubFilter {
-    name: String = ''
+    name: string = ''
     value: string = '0'
     equation: SubFilterEquation = SubFilterEquation['>']
+    constructor (data?: any) {
+        if (!data) return;
+        for (const i in data)
+            if (this.hasOwnProperty(i)) {
+            	// @ts-ignore
+                this[i] = data[i];
+                console.log(i)
+            }
+            else console.log('1111====', i)
+        console.log(data, this.name, this.value, this.equation);
+    }
     filterOne(input: ArtifactParam): number {
         if (this.name !== input.name) return 0
         if ((input.value.indexOf('%') === -1) !== (this.value.indexOf('%') === -1)) return 0 // 一个有%一个没有，不同类
@@ -69,5 +81,17 @@ export class ArtifactFilter {
         const subExclude = this.filterSub(artifact.sub, this.excludeSub, this.excludeSubCount + 1, false)
         inFilter = inFilter && subInclude && !subExclude
         return inFilter
+    }
+    loadFromJSON(str: string) {
+        const data = JSON.parse(str);
+        for (const i in data)
+            if (this.hasOwnProperty(i))
+                if (i === 'includeSub' || i === 'excludeSub') {
+                    this[i] = [];
+                    for (let j = 0; j < data[i].length; j ++ )
+                        this[i].push(new SubFilter(data[i][j]));
+                }
+                // @ts-ignore
+                else this[i] = data[i];
     }
 }
