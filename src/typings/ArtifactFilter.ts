@@ -22,10 +22,7 @@ export class SubFilter {
             if (this.hasOwnProperty(i)) {
             	// @ts-ignore
                 this[i] = data[i];
-                console.log(i)
             }
-            else console.log('1111====', i)
-        console.log(data, this.name, this.value, this.equation);
     }
     filterOne(input: ArtifactParam): number {
         if (this.name !== input.name) return 0
